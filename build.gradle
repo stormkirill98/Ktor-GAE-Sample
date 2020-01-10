@@ -30,6 +30,7 @@ dependencies {
     compile "com.google.cloud:google-cloud-logging-logback:$gce_logback_version"
 
     providedCompile "com.google.appengine:appengine:$appengine_version"
+    implementation "com.googlecode.objectify:objectify:$objectify_version"
 }
 
 task run(dependsOn: appengineRun)
