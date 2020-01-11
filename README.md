@@ -12,3 +12,5 @@ Already setup *Datastore* and *Logging*
 * [Manage Cloud APIs](https://cloud.google.com/code/docs/intellij/client-libraries?utm_source=github&utm_medium=google-cloud-java&utm_campaign=ToolsforIntelliJ) 
 (using Cloud Code)
 
+#### Notes:
+* Now not exist local datastore. Local server save data in datastore on GAE Server
