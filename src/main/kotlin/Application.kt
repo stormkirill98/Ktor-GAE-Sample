@@ -2,7 +2,6 @@ import com.googlecode.objectify.ObjectifyService
 import com.googlecode.objectify.annotation.Entity
 import com.googlecode.objectify.annotation.Id
 import io.ktor.application.Application
-import io.ktor.application.ApplicationStarting
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.CORS
@@ -20,6 +19,7 @@ import kotlinx.html.head
 import kotlinx.html.p
 import kotlinx.html.title
 import org.slf4j.LoggerFactory
+import kotlin.random.Random
 
 @Suppress("unused")
 fun Application.main() {
@@ -33,11 +33,6 @@ fun Application.main() {
         header(HttpHeaders.Authorization)
         allowCredentials = true
         anyHost()
-    }
-
-    environment.monitor.subscribe(ApplicationStarting) { _: Application ->
-        ObjectifyService.init()
-        ObjectifyService.register(Note::class.java)
     }
 
     val logger = LoggerFactory.getLogger("Application")
@@ -78,5 +73,6 @@ fun Application.main() {
 
 @Entity
 data class Note(@Id val id: Long, val text: String) {
-    constructor(text: String) : this(0L, text)
+    constructor(text: String) : this(Random.nextLong(1000000, Long.MAX_VALUE), text)
+    constructor() : this(0L, "")
 }

@@ -31,6 +31,9 @@ dependencies {
 
     providedCompile "com.google.appengine:appengine:$appengine_version"
     implementation "com.googlecode.objectify:objectify:$objectify_version"
+
+    providedCompile "javax.servlet:javax.servlet-api:$javax_servlet_version"
+
 }
 
 task run(dependsOn: appengineRun)
