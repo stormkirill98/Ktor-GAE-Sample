@@ -1,6 +1,7 @@
 import com.googlecode.objectify.ObjectifyService
 import com.googlecode.objectify.annotation.Entity
 import com.googlecode.objectify.annotation.Id
+import dao.NoteDao
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -58,21 +59,21 @@ fun Application.main() {
 
             text?.let {
                 val note = Note(it)
-                ObjectifyService.ofy().save().entity(note)
+                NoteDao.save(note)
 
                 logger.info("Save note with text='$text'")
             }
         }
 
         get("/list") {
-            val notes = ObjectifyService.ofy().load().type(Note::class.java).list()
+            val notes = NoteDao.listAll()
             call.respondText(notes.toString(), contentType = ContentType.Text.Plain)
         }
     }
 }
 
 @Entity
-data class Note(@Id val id: Long, val text: String) {
-    constructor(text: String) : this(Random.nextLong(1000000, Long.MAX_VALUE), text)
+data class Note(@Id val id: Long?, var text: String) {
+    constructor(text: String) : this(null, text)
     constructor() : this(0L, "")
 }
